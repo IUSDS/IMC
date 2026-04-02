@@ -33,71 +33,65 @@ const BRANDS = [
 
 const CARS = [
   // Rolls-Royce
-  { brand: 'Rolls-Royce', model: '1939 RR', trim: 'Vintage', price: '$2,500', power: '114 HP', engine: '7.3L V12', img: 'https://images.unsplash.com/photo-1536364127590-1594e3161294?q=80&w=2000&auto=format&fit=crop' },
-  { brand: 'Rolls-Royce', model: '2013 RR', trim: 'Chauffeur', price: '$1,800', power: '453 HP', engine: '6.75L V12', img: 'https://images.unsplash.com/photo-1633501728282-36c646da8ea4?q=80&w=2000&auto=format&fit=crop' },
+  { brand: 'Rolls-Royce', model: '1939 RR', trim: 'Vintage', price: '$2,500', power: '114 HP', engine: '7.3L V12', img: '/fleet/rollsroyce/1939-1.webp', images: ['/fleet/rollsroyce/1939-1.webp'] },
+  { brand: 'Rolls-Royce', model: '2013 RR', trim: 'Chauffeur', price: '$1,800', power: '453 HP', engine: '6.75L V12', img: '/fleet/rollsroyce/2013-1.webp', images: ['/fleet/rollsroyce/2013-1.webp'] },
 
   // BMW
-  { brand: 'BMW', model: 'Z4', trim: 'Roadster', price: '$400', power: '382 HP', engine: '3.0L I6', img: 'https://images.unsplash.com/photo-1618846702213-33e9b1bc182b?q=80&w=2000&auto=format&fit=crop' },
-  { brand: 'BMW', model: '520i', trim: 'Sedan', price: '$350', power: '208 HP', engine: '2.0L I4', img: 'https://images.unsplash.com/photo-1555009710-18eaf3bc44ef?q=80&w=2000&auto=format&fit=crop' },
-  { brand: 'BMW', model: '520d', trim: 'Diesel', price: '$350', power: '197 HP', engine: '2.0L I4', img: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2000&auto=format&fit=crop' },
+  { brand: 'BMW', model: 'Z4', trim: 'Roadster', price: '$400', power: '382 HP', engine: '3.0L I6', img: '/fleet/bmw/Z4-1.webp', images: ['/fleet/bmw/Z4-1.webp'] },
+  { brand: 'BMW', model: '520i', trim: 'Sedan', price: '$350', power: '208 HP', engine: '2.0L I4', img: '/fleet/bmw/520i-1.webp', images: ['/fleet/bmw/520i-1.webp', '/fleet/bmw/520i-2.webp'] },
 
   // Mercedes-Benz
-  { brand: 'Mercedes-Benz', model: 'G-Wagon', trim: 'G63 AMG', price: '$1,200', power: '577 HP', engine: '4.0L V8 TT', img: 'https://images.unsplash.com/photo-1520038410233-7141be7b6f64?q=80&w=2000&auto=format&fit=crop' },
-  { brand: 'Mercedes-Benz', model: 'GLX', trim: 'SUV', price: '$800', power: '362 HP', engine: '3.0L I6', img: 'https://images.unsplash.com/photo-1620884676159-b1d7d0a793a6?q=80&w=2000&auto=format&fit=crop' },
-  { brand: 'Mercedes-Benz', model: 'E-Class', trim: 'Sedan', price: '$500', power: '255 HP', engine: '2.0L I4', img: 'https://images.unsplash.com/photo-1618349283737-02434868297a?q=80&w=2000&auto=format&fit=crop' },
+  { brand: 'Mercedes-Benz', model: 'G-Wagon', trim: 'G63 AMG', price: '$1,200', power: '577 HP', engine: '4.0L V8 TT', img: '/fleet/mercedes/Gwagon-1.webp', images: ['/fleet/mercedes/Gwagon-1.webp'] },
+  { brand: 'Mercedes-Benz', model: 'E-Class', trim: 'Sedan', price: '$500', power: '255 HP', engine: '2.0L I4', img: '/fleet/mercedes/Eclass-1.webp', images: ['/fleet/mercedes/Eclass-1.webp', '/fleet/mercedes/Eclass-2.webp'] },
 
   // Volvo
-  { brand: 'Volvo', model: 'XC90', trim: 'Recharge', price: '$450', power: '455 HP', engine: 'Hybrid', img: 'https://images.unsplash.com/photo-1620608551722-48f5a6b093cd?q=80&w=2000&auto=format&fit=crop' },
-  { brand: 'Volvo', model: 'S90', trim: 'Luxury Sedan', price: '$400', power: '295 HP', engine: 'Mild Hybrid', img: 'https://images.unsplash.com/photo-1610443905541-654dbda41fbe?q=80&w=2000&auto=format&fit=crop' },
+  { brand: 'Volvo', model: 'S90', trim: 'Luxury Sedan', price: '$400', power: '295 HP', engine: 'Mild Hybrid', img: '/fleet/volvo/S90-1.webp', images: ['/fleet/volvo/S90-1.webp'] },
 
   // Land Rover
-  { brand: 'Land Rover', model: 'Range Rover', trim: 'HSE', price: '$900', power: '395 HP', engine: '3.0L I6', img: 'https://images.unsplash.com/photo-1644498308316-0969560337c7?q=80&w=2000&auto=format&fit=crop' },
+  { brand: 'Land Rover', model: 'Range Rover', trim: 'HSE', price: '$900', power: '395 HP', engine: '3.0L I6', img: '/fleet/landrover/RangeRover-1.webp', images: ['/fleet/landrover/RangeRover-1.webp'] },
 
   // Lamborghini
-  { brand: 'Lamborghini', model: 'Aventador', trim: 'LP 780-4', price: '$2,500', power: '769 HP', engine: 'V12', img: 'https://images.unsplash.com/photo-1603597022026-b8440333796d?q=80&w=2000&auto=format&fit=crop' }
+  { brand: 'Lamborghini', model: 'Aventador', trim: 'LP 780-4', price: '$2,500', power: '769 HP', engine: 'V12', img: '/fleet/lamborghini/aventador-1.webp', images: ['/fleet/lamborghini/aventador-1.webp', '/fleet/lamborghini/aventador-2.webp'] }
 ];
 
 const SPOTLIGHT_DATA = {
   'Rolls-Royce': {
     models: ['1939 RR', '2013 RR'],
     details: {
-      '1939 RR': { name: '1939 RR', desc: 'A timeless classic. Experience the vintage elegance and unmatched prestige of a 1939 Rolls-Royce.', power: '114 HP', engine: '7.3L V12', accel: '14.0s', topSpeed: '160 KM/H', img: 'https://images.unsplash.com/photo-1536364127590-1594e3161294?q=80&w=2000&auto=format&fit=crop' },
-      '2013 RR': { name: '2013 RR', desc: 'Modern luxury refined. The 2013 phantom represents the pinnacle of contemporary chauffeur-driven excellence.', power: '453 HP', engine: '6.75L V12', accel: '5.9s', topSpeed: '240 KM/H', img: 'https://images.unsplash.com/photo-1633501728282-36c646da8ea4?q=80&w=2000&auto=format&fit=crop' }
+      '1939 RR': { name: '1939 RR', desc: 'A timeless classic. Experience the vintage elegance and unmatched prestige of a 1939 Rolls-Royce.', power: '114 HP', engine: '7.3L V12', accel: '14.0s', topSpeed: '160 KM/H', img: '/fleet/rollsroyce/1939-1.webp' },
+      '2013 RR': { name: '2013 RR', desc: 'Modern luxury refined. The 2013 phantom represents the pinnacle of contemporary chauffeur-driven excellence.', power: '453 HP', engine: '6.75L V12', accel: '5.9s', topSpeed: '240 KM/H', img: '/fleet/rollsroyce/2013-1.webp' }
     }
   },
   'Lamborghini': {
     models: ['Aventador'],
     details: {
-      'Aventador': { name: 'Aventador', desc: 'The pure, unadulterated essence of a naturally aspirated V12 engine. Born for the track, unleashed on the street.', power: '769 HP', engine: '6.5L V12', accel: '2.8s', topSpeed: '355 KM/H', img: 'https://images.unsplash.com/photo-1603597022026-b8440333796d?q=80&w=2000&auto=format&fit=crop' }
+      'Aventador': { name: 'Aventador', desc: 'The pure, unadulterated essence of a naturally aspirated V12 engine. Born for the track, unleashed on the street.', power: '769 HP', engine: '6.5L V12', accel: '2.8s', topSpeed: '355 KM/H', img: '/fleet/lamborghini/aventador-1.webp' }
     }
   },
   'BMW': {
-    models: ['Z4', '520i', '520d'],
+    models: ['Z4', '520i'],
     details: {
-      'Z4': { name: 'BMW Z4', desc: 'A true roadster experience. Dynamic agility meets open-air freedom and stunning aesthetics.', power: '382 HP', engine: '3.0L I6', accel: '3.9s', topSpeed: '250 KM/H', img: 'https://images.unsplash.com/photo-1618846702213-33e9b1bc182b?q=80&w=2000&auto=format&fit=crop' },
-      '520i': { name: 'BMW 520i', desc: 'The quintessential executive sedan combining supreme comfort with incredibly dynamic handling.', power: '208 HP', engine: '2.0L I4', accel: '7.5s', topSpeed: '230 KM/H', img: 'https://images.unsplash.com/photo-1555009710-18eaf3bc44ef?q=80&w=2000&auto=format&fit=crop' },
-      '520d': { name: 'BMW 520d', desc: 'Efficient dynamics delivered precisely through an advanced, torque-heavy diesel powerhouse.', power: '197 HP', engine: '2.0L Turbo Diesel', accel: '7.3s', topSpeed: '233 KM/H', img: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2000&auto=format&fit=crop' }
+      'Z4': { name: 'BMW Z4', desc: 'A true roadster experience. Dynamic agility meets open-air freedom and stunning aesthetics.', power: '382 HP', engine: '3.0L I6', accel: '3.9s', topSpeed: '250 KM/H', img: '/fleet/bmw/Z4-1.webp' },
+      '520i': { name: 'BMW 520i', desc: 'The quintessential executive sedan combining supreme comfort with incredibly dynamic handling.', power: '208 HP', engine: '2.0L I4', accel: '7.5s', topSpeed: '230 KM/H', img: '/fleet/bmw/520i-1.webp' }
     }
   },
   'Mercedes-Benz': {
-    models: ['G-Wagon', 'GLX', 'E-Class'],
+    models: ['G-Wagon', 'E-Class'],
     details: {
-      'G-Wagon': { name: 'G-Wagon', desc: 'The indispensable conqueror. Instantly recognizable, eternally sophisticated, and unstoppably capable.', power: '577 HP', engine: '4.0L V8 TT', accel: '4.5s', topSpeed: '220 KM/H', img: 'https://images.unsplash.com/photo-1520038410233-7141be7b6f64?q=80&w=2000&auto=format&fit=crop' },
-      'GLX': { name: 'GLX', desc: 'The S-Class of SUVs. Offering the pinnacle of space, comfort, and versatile luxury.', power: '362 HP', engine: '3.0L I6', accel: '5.9s', topSpeed: '210 KM/H', img: 'https://images.unsplash.com/photo-1620884676159-b1d7d0a793a6?q=80&w=2000&auto=format&fit=crop' },
-      'E-Class': { name: 'E-Class', desc: 'A masterclass in intelligence. An icon of innovative safety, performance, and highly sophisticated luxury.', power: '255 HP', engine: '2.0L I4', accel: '6.1s', topSpeed: '210 KM/H', img: 'https://images.unsplash.com/photo-1618349283737-02434868297a?q=80&w=2000&auto=format&fit=crop' }
+      'G-Wagon': { name: 'G-Wagon', desc: 'The indispensable conqueror. Instantly recognizable, eternally sophisticated, and unstoppably capable.', power: '577 HP', engine: '4.0L V8 TT', accel: '4.5s', topSpeed: '220 KM/H', img: '/fleet/mercedes/Gwagon-1.webp' },
+      'E-Class': { name: 'E-Class', desc: 'A masterclass in intelligence. An icon of innovative safety, performance, and highly sophisticated luxury.', power: '255 HP', engine: '2.0L I4', accel: '6.1s', topSpeed: '210 KM/H', img: '/fleet/mercedes/Eclass-1.webp' }
     }
   },
   'Volvo': {
-    models: ['XC90', 'S90'],
+    models: ['S90'],
     details: {
-      'XC90': { name: 'XC90 Recharge', desc: 'Modern progressive luxury. The flagship hybrid SUV combining zero-emission driving with commanding performance.', power: '455 HP', engine: 'Hybrid', accel: '5.0s', topSpeed: '180 KM/H', img: 'https://images.unsplash.com/photo-1620608551722-48f5a6b093cd?q=80&w=2000&auto=format&fit=crop' },
-      'S90': { name: 'Volvo S90', desc: 'Scandinavian sanctuary. The elegant flagship sedan designed meticulously around human comfort and safety.', power: '295 HP', engine: 'Mild Hybrid', accel: '6.2s', topSpeed: '180 KM/H', img: 'https://images.unsplash.com/photo-1610443905541-654dbda41fbe?q=80&w=2000&auto=format&fit=crop' }
+      'S90': { name: 'Volvo S90', desc: 'Scandinavian sanctuary. The elegant flagship sedan designed meticulously around human comfort and safety.', power: '295 HP', engine: 'Mild Hybrid', accel: '6.2s', topSpeed: '180 KM/H', img: '/fleet/volvo/S90-1.webp' }
     }
   },
   'Land Rover': {
     models: ['Range Rover'],
     details: {
-      'Range Rover': { name: 'Range Rover', desc: 'The pinnacle of refined capability. Unmistakable proportions, peerless luxury, and commanding all-terrain ability.', power: '395 HP', engine: '3.0L I6', accel: '5.8s', topSpeed: '242 KM/H', img: 'https://images.unsplash.com/photo-1644498308316-0969560337c7?q=80&w=2000&auto=format&fit=crop' }
+      'Range Rover': { name: 'Range Rover', desc: 'The pinnacle of refined capability. Unmistakable proportions, peerless luxury, and commanding all-terrain ability.', power: '395 HP', engine: '3.0L I6', accel: '5.8s', topSpeed: '242 KM/H', img: '/fleet/landrover/RangeRover-1.webp' }
     }
   }
 };

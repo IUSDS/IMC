@@ -45,12 +45,21 @@ export default function SignatureOfferingsSection() {
                   <p className="text-white/60 text-base md:text-[16px] font-light leading-[1.8] mb-10 md:mb-12">
                     {item.desc}
                   </p>
-                  <Link href={`/offerings/${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="group flex items-center gap-4 w-fit">
-                    <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white group-hover:text-[#d4af37] transition-colors duration-300">
-                      Explore {item.title}
+                  {['Rental Membership', 'Motor Club Membership', 'Chauffeur Services'].includes(item.title) ? (
+                    <span className="flex items-center gap-4 w-fit">
+                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white/40">
+                        Coming Soon
+                      </span>
+                      <span className="w-8 h-[1px] bg-white/20" />
                     </span>
-                    <span className="w-8 h-[1px] bg-white/30 group-hover:bg-[#d4af37] group-hover:w-12 transition-all duration-300" />
-                  </Link>
+                  ) : (
+                    <Link href={`/offerings/${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="group flex items-center gap-4 w-fit">
+                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white group-hover:text-[#d4af37] transition-colors duration-300">
+                        Explore {item.title}
+                      </span>
+                      <span className="w-8 h-[1px] bg-white/30 group-hover:bg-[#d4af37] group-hover:w-12 transition-all duration-300" />
+                    </Link>
+                  )}
                 </div>
               </div>
              );

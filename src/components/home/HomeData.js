@@ -42,15 +42,15 @@ export const homeData = {
     { title: "EXCLUSIVE MEMBERSHIP", desc: "Priority access, private gatherings, and a discreet network for distinguished clients across India’s key metros." }
   ],
   signatureOfferings: [
+    { title: "Vehicle Consignment", desc: "Turn your luxury or exotic vehicle into an earning asset. Our consignment program allows you to list your car within our elite rental fleet. We handle the storage, maintenance, and professional bookings, ensuring your vehicle is cared for while generating consistent returns." },
     { title: "Motor Club Membership", desc: "Join an elite community designed for the true connoisseur. This tier offers more than a key; it provides entry into a private circle with access to social events, premium vehicle storage, and a refined lifestyle experience tailored for those who demand the exceptional." },
     { title: "Rental Membership", desc: "Designed for the executive who frequents India's metropolitan hubs. This membership unlocks preferred rates, priority access to high-demand assets, and a streamlined booking structure. It is the definitive choice for those who value time and consistency." },
     { title: "Chauffeur Services", desc: "Experience the ease of our professional chauffeur services. Our drivers are trained to provide a discreet and comfortable journey through the city’s busiest districts. Ideal for corporate travel, weddings, and special events, our chauffeur ensures you arrive safely, refreshed and on time." },
-    { title: "Vehicle Consignment", desc: "Turn your luxury or exotic vehicle into an earning asset. Our consignment program allows you to list your car within our elite rental fleet. We handle the storage, maintenance, and professional bookings, ensuring your vehicle is cared for while generating consistent returns." }
   ],
   fleet: [
-    { name: "1939 Rolls-Royce Wraith", category: "Vintage", image: "/placeholder-car1.jpg" },
-    { name: "Lamborghini Aventador", category: "Exotic", image: "/placeholder-car2.jpg" },
-    { name: "Mercedes-Maybach S-Class", category: "Luxury", image: "/placeholder-car3.jpg" },
-    { name: "Bentley Continental GT", category: "Grand Tourer", image: "/placeholder-car4.jpg" }
+    { name: "1939 Rolls-Royce Wraith", category: "Vintage", image: "/fleet/rollsroyce/1939-1.webp" },
+    { name: "Lamborghini Aventador", category: "Exotic", image: "/fleet/lamborghini/aventador-1.webp" },
+    { name: "Mercedes-Benz G-Wagon", category: "Luxury", image: "/fleet/mercedes/Gwagon-1.webp" },
+    { name: "BMW Z4", category: "Grand Tourer", image: "/fleet/bmw/Z4-1.webp" }
   ]
 };

@@ -3,15 +3,16 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
+const MENU_BG_IMAGE = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80';
+
 const NAV_LINKS = [
-  { id: '1', title: 'Home', num: '01', href: '/', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80' },
-  { id: '2', title: 'Fleet', num: '02', href: '/fleet', img: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1920&q=80' },
-  { id: '3', title: 'Vehicle Consignment', num: '03', href: '/vehicleConsignment', img: 'https://images.unsplash.com/photo-1563720223185-11003d32c946?auto=format&fit=crop&w=1920&q=80' }
+  { id: '1', title: 'Home', num: '01', href: '/' },
+  { id: '2', title: 'Fleet', num: '02', href: '/fleet' },
+  { id: '3', title: 'Vehicle Consignment', num: '03', href: '/vehicleConsignment' }
 ];
 
 export default function Navbar({ onOpenModal } = {}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [activePreview, setActivePreview] = useState('1');
   const [isScrolled, setIsScrolled] = useState(false);
 
   const tlRef = useRef(null);
@@ -32,11 +33,11 @@ export default function Navbar({ onOpenModal } = {}) {
       gsap.set('.nav-link-text', { y: '110%' });
       gsap.set('.nav-link-num', { opacity: 0, y: -20 });
 
-      const tl = gsap.timeline({ paused: true, defaults: { ease: "power4.inOut" } });
-      tl.to(overlayRef.current, { x: '0%', visibility: 'visible', duration: 1 })
-        .from(leftPaneRef.current, { x: -50, opacity: 0, duration: 1 }, "-=0.6")
-        .to('.nav-link-text', { y: '0%', duration: 1, stagger: 0.05 }, "-=0.8")
-        .to('.nav-link-num', { opacity: 0.5, y: 0, duration: 1, stagger: 0.05 }, "-=0.8");
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      tl.to(overlayRef.current, { x: '0%', visibility: 'visible', duration: 0.15 })
+        .from(leftPaneRef.current, { x: -30, opacity: 0, duration: 0.1 }, "-=0.1")
+        .to('.nav-link-text', { y: '0%', duration: 0.15, stagger: 0.03 }, "-=0.15")
+        .to('.nav-link-num', { opacity: 0.5, y: 0, duration: 0.15, stagger: 0.03 }, "-=0.1");
 
       tlRef.current = tl;
     });
@@ -59,7 +60,7 @@ export default function Navbar({ onOpenModal } = {}) {
 
         {/* Scrolled Background Container with Grain */}
         <div
-          className={`absolute inset-0 z-[-1] transition-opacity duration-700 bg-black/95 border-b border-[#E5E7EB] ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 z-[-1] transition-opacity duration-700 bg-black/95 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
         >
           {/* We reuse the global noiseFilter defined in GrainOverlay for identical texture consistency */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.16]" style={{ filter: 'url(#noiseFilter)' }} />
@@ -73,12 +74,12 @@ export default function Navbar({ onOpenModal } = {}) {
             onClick={toggleMenu}
             className="flex items-center gap-4 cursor-pointer group z-[2000]"
           >
-            <span className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-500 ${isOpen ? 'opacity-100 translate-x-0 !text-white' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+            <span className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${isOpen ? 'opacity-100 translate-x-0 !text-white' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               CLOSE
             </span>
             <div className={`relative w-[30px] h-[12px] flex flex-col justify-between items-end ${isOpen ? 'open' : ''}`}>
-              <div className={`h-[1px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'w-full translate-y-[5.5px] rotate-45 bg-white' : 'w-full bg-white'}`}></div>
-              <div className={`h-[1px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'w-full -translate-y-[5.5px] -rotate-45 bg-white' : 'w-[60%] bg-white'}`}></div>
+              <div className={`h-[1px] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'w-full translate-y-[5.5px] rotate-45 bg-white' : 'w-full bg-white'}`}></div>
+              <div className={`h-[1px] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'w-full -translate-y-[5.5px] -rotate-45 bg-white' : 'w-[60%] bg-white'}`}></div>
             </div>
           </div>
         </div>
@@ -89,15 +90,12 @@ export default function Navbar({ onOpenModal } = {}) {
         ref={overlayRef}
         className="fixed inset-0 bg-[#0a0a0a]/98 backdrop-blur-3xl z-[1000] flex items-center justify-center overflow-hidden invisible"
       >
-        <div className="absolute inset-0 z-[-1] opacity-15 overflow-hidden transition-opacity duration-800 pointer-events-none">
-          {NAV_LINKS.map((link) => (
-            <img
-              key={link.id}
-              src={link.img}
-              alt={link.title}
-              className={`absolute inset-0 w-full h-full object-cover grayscale brightness-75 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${activePreview === link.id ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}
-            />
-          ))}
+        <div className="absolute inset-0 z-[-1] opacity-15 overflow-hidden pointer-events-none">
+          <img
+            src={MENU_BG_IMAGE}
+            alt="Menu background"
+            className="absolute inset-0 w-full h-full object-cover grayscale brightness-75"
+          />
         </div>
 
         <div className="w-full max-w-[1400px] h-full md:h-auto px-6 md:px-12 py-24 md:py-10 flex flex-col md:flex-row items-stretch">
@@ -121,7 +119,6 @@ export default function Navbar({ onOpenModal } = {}) {
                 <li key={link.id} className="mb-4 md:mb-6 overflow-hidden h-auto">
                   <a
                     href={link.href}
-                    onMouseEnter={() => setActivePreview(link.id)}
                     onClick={(e) => {
                       if (link.title === 'Inquire') {
                         e.preventDefault();

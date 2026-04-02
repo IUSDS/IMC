@@ -33,7 +33,7 @@ export default function NewHomeContent() {
       }
 
       const frameOffset = 0; // Start from frame_0001
-      const frameCount = 1208;
+      const frameCount = 862;
       const currentFrame = index => (
         `/home/hero-frames/frame_${(index + 1 + frameOffset).toString().padStart(4, '0')}.jpg`
       );
