@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Manrope:wght@200;300;400;500&display=swap');
+/* Fonts loaded via next/font/google in layout.jsx — no @import needed */
 
 .new-home-page {
   --color-bg: #000000;
   --color-text: #FFFFFF;
   --color-accent: #d4af37;
 
-  --font-display: 'Manrope', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* Use CSS vars injected by next/font/google in layout.jsx */
+  --font-display: var(--font-manrope), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
 
   /* background-color: var(--color-bg); Removed -> solid background hides z-index -1 video */
   color: var(--color-text);
@@ -59,7 +60,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0.9;
-  /* Slightly dim the video for better text readability */
+  will-change: transform;  /* GPU compositing hint for canvas repaints */
 }
 
 .new-home-page .video-overlay {
@@ -263,11 +264,7 @@
 
 /* Removed custom footer CSS to use global app footer */
 
-/* Initial states for GSAP animations */
-.new-home-page .segment h1,
-.new-home-page .segment h2,
-.new-home-page .segment p,
-.new-home-page .segment a {
-  opacity: 0;
-  transform: translateY(30px);
-}
+/* Initial states for GSAP animations are now set exclusively via gsap.set() in JS.
+ * Keeping them in CSS was hiding ALL segment text before GSAP ran, causing a black
+ * screen on first load when the script was slow. The intro-loader (z-index:9999)
+ * covers the page during the animation so no flash occurs. */
