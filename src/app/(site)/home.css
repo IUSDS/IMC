@@ -134,31 +134,32 @@
 }
 
 .new-home-page .segment {
-  min-height: 100vh;
+  height: 250vh; /* The 150vh extra handles the 'hard stop' spacing seamlessly */
   display: flex;
-  align-items: center;
-  padding: 0 5vw;
+  align-items: flex-start; /* Important for sticky to work correctly inside */
   position: relative;
-  /* Add large vertical spacing as requested */
-  margin-bottom: 100vh;
 }
 
 /* Remove margin from last segment to avoid extra scroll space before footer */
 .new-home-page .segment:last-of-type {
   margin-bottom: 0;
-  min-height: 80vh;
-  /* Slightly shorter to flow into footer */
+  height: 150vh;
 }
 
-/* Layout Placements */
+/* Layout Placements - Upgraded to act as sticky guardrails */
 .new-home-page .content-center {
   width: 100%;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
   max-width: min(1100px, 90vw);
   margin: 0 auto;
+  padding: 0 5vw;
 }
 
 /* Wide variant — used for Seamless Reservation section */
@@ -168,15 +169,31 @@
 
 .new-home-page .content-left {
   width: 100%;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   max-width: min(720px, 80vw);
   margin-right: auto;
+  padding: 0 5vw;
 }
 
 .new-home-page .content-right {
   width: 100%;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
   max-width: min(720px, 80vw);
   margin-left: auto;
   text-align: right;
+  padding: 0 5vw;
 }
 
 /* Typography Styles */

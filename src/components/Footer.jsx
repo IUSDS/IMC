@@ -51,9 +51,8 @@ export default function Footer({ onOpenModal } = {}) {
         <div className="col-span-2 md:col-span-1 lg:col-span-1">
           <h4 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">HQ</h4>
           <p className="text-white leading-relaxed font-body">
-            DLF Cyber City<br />
-            Phase 2, Gurugram<br />
-            Haryana 122002
+            Mehrauli<br />
+            New Delhi 110030
           </p>
         </div>
       </div>
