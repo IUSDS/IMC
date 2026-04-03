@@ -16,15 +16,15 @@ if (typeof window !== 'undefined') {
 // ─── Canvas resolution based on device ─────────────────────────────────────
 function getCanvasSize() {
   if (typeof window === 'undefined') return { w: 1920, h: 1080 };
-  if (window.innerWidth <= 768)  return { w: 960,  h: 540  };
-  if (window.innerWidth <= 1280) return { w: 1280, h: 720  };
+  if (window.innerWidth <= 768) return { w: 960, h: 540 };
+  if (window.innerWidth <= 1280) return { w: 1280, h: 720 };
   return { w: 1920, h: 1080 };
 }
 
 // ─── 3-Phase frame URL builder ──────────────────────────────────────────────
-const FRAME_COUNT  = 862;
-const PHASE1_END   = 60;   // loaded immediately
-const PHASE2_END   = 250;  // loaded during idle time
+const FRAME_COUNT = 862;
+const PHASE1_END = 60;   // loaded immediately
+const PHASE2_END = 250;  // loaded during idle time
 const currentFrame = i =>
   `/home/hero-frames/frame_${(i + 1).toString().padStart(4, '0')}.jpg`;
 
@@ -34,10 +34,10 @@ export default function NewHomeContent() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const wrapperRef     = useRef(null);
-  const canvasRef      = useRef(null);
+  const wrapperRef = useRef(null);
+  const canvasRef = useRef(null);
   const introLoaderRef = useRef(null);
-  const contentRef     = useRef(null);
+  const contentRef = useRef(null);
 
   // ── Sync lenis ref every render so closures always see the latest value ──
   lenisRef.current = lenis;
@@ -52,16 +52,16 @@ export default function NewHomeContent() {
     let killed = false;
 
     // ── 1. Canvas setup ────────────────────────────────────────────────────
-    const canvas  = canvasRef.current;
+    const canvas = canvasRef.current;
     const context = canvas ? canvas.getContext('2d') : null;
     if (canvas && context) {
       const { w, h } = getCanvasSize();
-      canvas.width  = w;
+      canvas.width = w;
       canvas.height = h;
     }
 
     // Shared image bank — pre-allocated so indices are stable
-    const images   = new Array(FRAME_COUNT).fill(null);
+    const images = new Array(FRAME_COUNT).fill(null);
     const imageSeq = { frame: 0 };
 
     // ── Render current frame ───────────────────────────────────────────────
@@ -77,10 +77,10 @@ export default function NewHomeContent() {
     // ── Load a single frame ────────────────────────────────────────────────
     function loadFrame(index, onLoaded) {
       if (killed) return;
-      const img      = new Image();
-      img.decoding   = 'async';
-      img.src        = currentFrame(index);
-      images[index]  = img;
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = currentFrame(index);
+      images[index] = img;
       if (onLoaded) img.onload = () => { if (!killed) onLoaded(); };
     }
 
@@ -138,19 +138,58 @@ export default function NewHomeContent() {
 
       const introTl = gsap.timeline({
         onComplete: () => {
+          let snapPoints = [];
+
           // Scroll-driven frame scrub starts from frame 50
           gsap.fromTo(
             imageSeq,
             { frame: 49 },
             {
               frame: FRAME_COUNT - 1,
-              snap:  'frame',
-              ease:  'none',
+              snap: 'frame',
+              ease: 'none',
               scrollTrigger: {
                 trigger: wrapperRef.current,
-                start:   'top top',
-                end:     'bottom bottom',
-                scrub:   1,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 2.5,
+                onRefresh: (self) => {
+                  const maxScroll = self.end - self.start;
+                  if (maxScroll <= 0) return;
+
+                  const segments = gsap.utils.toArray('.segment, .how-it-works-section, .signature-offerings-section');
+                  const points = [0]; // snap to top
+
+                  segments.forEach(segment => {
+                    const rect = segment.getBoundingClientRect();
+                    // absolute offset from document top
+                    const absoluteTop = rect.top + window.scrollY;
+                    const absoluteCenter = absoluteTop + (rect.height / 2);
+
+                    // calculate scrollY required to perfectly center this segment
+                    const targetScroll = absoluteCenter - (window.innerHeight / 2);
+
+                    // map this scrollY to the ScrollTrigger's 0-1 progress
+                    let progress = (targetScroll - self.start) / maxScroll;
+
+                    points.push(gsap.utils.clamp(0, 1, progress));
+                  });
+
+                  points.push(1); // snap to bottom
+                  snapPoints = points;
+                },
+                snap: {
+                  snapTo: (progress) => {
+                    if (!snapPoints.length) return progress;
+                    // Find closest valid progress stop for magnetic effect
+                    return snapPoints.reduce((prev, curr) =>
+                      Math.abs(curr - progress) < Math.abs(prev - progress) ? curr : prev
+                    );
+                  },
+                  delay: 0.15, // Wait for scroll pause before snapping (prevents scroll hijack)
+                  duration: { min: 0.1, max: 0.5 },
+                  ease: 'power2.inOut',
+                }
               },
               onUpdate: render,
             }
@@ -167,17 +206,17 @@ export default function NewHomeContent() {
         .set(introLoaderRef.current, { display: 'none' })
         // Autoplay first 50 frames
         .to(imageSeq, {
-          frame:    49,
-          snap:     'frame',
+          frame: 49,
+          snap: 'frame',
           duration: 2,
-          ease:     'power1.inOut',
+          ease: 'power1.inOut',
           onUpdate: render,
         });
     };
 
     // ── 3. Video readiness gate — never hangs the page ────────────────────
-    const videoEl       = document.getElementById('intro-video');
-    let   introFired    = false;
+    const videoEl = document.getElementById('intro-video');
+    let introFired = false;
 
     function fireIntroOnce() {
       if (introFired || killed) return;
@@ -250,7 +289,7 @@ export default function NewHomeContent() {
         gsap.to(elements, {
           scrollTrigger: {
             trigger: segment,
-            start:   'top 75%',
+            start: 'top 75%',
             toggleActions: 'play none none reverse',
           },
           ...animProps,

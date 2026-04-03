@@ -38,9 +38,9 @@ export default function HowItWorksSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[#0a0a0a]/10 text-white overflow-hidden z-10 border-t border-white/5 py-0 h-screen">
-      <div 
-        ref={containerRef} 
+    <section ref={sectionRef} className="how-it-works-section relative w-full bg-[#0a0a0a]/10 text-white overflow-hidden z-10 border-t border-white/5 py-0 h-screen">
+      <div
+        ref={containerRef}
         className="flex items-center h-screen pl-6 md:pl-20 lg:pl-32 relative w-max"
       >
         <div className="flex-shrink-0 w-full max-w-sm md:max-w-md lg:max-w-[500px] pr-12 md:pr-24">
@@ -66,15 +66,15 @@ export default function HowItWorksSection() {
             ];
 
             return (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="group flex-none w-[320px] md:w-[360px] p-6 md:p-8 bg-[#111] border border-white/10 flex flex-col justify-start transition-all duration-500 hover:border-[#d4af37] hover:-translate-y-2 hover:bg-[#151515] hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-pointer"
               >
                 <div className="w-full h-40 mb-6 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500 z-10"/>
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500 z-10" />
                   <img src={processImages[idx]} alt={step.title} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" />
                 </div>
-                
+
                 <div className="text-[#d4af37] font-serif tracking-[0.3em] text-xs mb-4 opacity-80 group-hover:opacity-100 transition-opacity uppercase">
                   {(idx + 1).toString().padStart(2, '0')}
                 </div>
