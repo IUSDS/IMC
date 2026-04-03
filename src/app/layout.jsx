@@ -29,9 +29,75 @@ const inter = Inter({
   display: 'swap',
 });
 
+const SITE_URL = "https://www.indianmotorclub.com";
+
 export const metadata = {
-  title: "Indian Motor Club | India’s Premier Luxury Car Rental Club",
-  description: "A signature collection of luxury and vintage automobiles curated precisely for your journey.",
+  metadataBase: new URL(SITE_URL),
+
+  title: {
+    default: "Indian Motor Club | India’s Premier Luxury Car Rental Club",
+    template: "%s | Indian Motor Club",
+  },
+  description:
+    "A signature collection of luxury and vintage automobiles curated precisely for your journey. Experience India’s finest luxury & vintage car rentals.",
+  keywords: [
+    "luxury car rental India",
+    "vintage car rental",
+    "luxury automobiles India",
+    "Indian Motor Club",
+    "premium car hire",
+    "wedding car rental India",
+    "chauffeur driven luxury cars",
+  ],
+
+  // Open Graph — used by WhatsApp, Facebook, LinkedIn, Instagram link previews
+  openGraph: {
+    type: "website",
+    siteName: "Indian Motor Club",
+    title: "Indian Motor Club | India’s Premier Luxury Car Rental Club",
+    description:
+      "A signature collection of luxury and vintage automobiles curated precisely for your journey.",
+    url: SITE_URL,
+    locale: "en_IN",
+    images: [
+      {
+        url: "/images/hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Indian Motor Club — Luxury & Vintage Car Collection",
+      },
+    ],
+  },
+
+  // Twitter Card — used by Twitter / X
+  twitter: {
+    card: "summary_large_image",
+    title: "Indian Motor Club | India’s Premier Luxury Car Rental Club",
+    description:
+      "A signature collection of luxury and vintage automobiles curated precisely for your journey.",
+    images: ["/images/hero.jpg"],
+  },
+
+  // Robots
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  // Misc
+  alternates: {
+    canonical: SITE_URL,
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {

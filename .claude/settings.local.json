@@ -4,7 +4,8 @@
       "Bash(npx next:*)",
       "Bash(find /c/Users/DELL/Desktop/IMC-Fleet-Page/src -type f \\\\\\(-name *.tsx -o -name *.ts -o -name *.jsx -o -name *.js \\\\\\))",
       "Bash(find /c/Users/DELL/Desktop/IMC-Fleet-Page/src -type f -name *fleet* -o -name *car* -o -name *vehicle*)",
-      "Bash(find /c/Users/DELL/Desktop/IMC-Fleet-Page/src -type f -name *.json -o -name *data* -o -name *DATA*)"
+      "Bash(find /c/Users/DELL/Desktop/IMC-Fleet-Page/src -type f -name *.json -o -name *data* -o -name *DATA*)",
+      "Bash(curl -s http://localhost:3000)"
     ]
   }
 }

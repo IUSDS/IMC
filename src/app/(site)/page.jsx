@@ -2,8 +2,8 @@ import NewHomeContent from '@/components/home/NewHomeContent';
 import './home.css';
 
 export const metadata = {
-  title: 'Indian Motor Club | India’s Premier Luxury Car Rental Club',
-  description: 'A signature collection of luxury and vintage automobiles curated precisely for your journey.',
+  description:
+    "A signature collection of luxury and vintage automobiles curated precisely for your journey. Experience India’s finest luxury & vintage car rentals.",
 };
 
 export default function HomePage() {
