@@ -61,7 +61,7 @@ export const metadata = {
     locale: "en_IN",
     images: [
       {
-        url: "/images/hero.jpg",
+        url: "/og-default.png",
         width: 1200,
         height: 630,
         alt: "Indian Motor Club — Luxury & Vintage Car Collection",
