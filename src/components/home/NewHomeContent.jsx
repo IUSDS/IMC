@@ -16,17 +16,14 @@ if (typeof window !== 'undefined') {
 // ─── Canvas resolution based on device ─────────────────────────────────────
 function getCanvasSize() {
   if (typeof window === 'undefined') return { w: 1920, h: 1080 };
-  if (window.innerWidth <= 768)  return { w: 960,  h: 540  };
-  if (window.innerWidth <= 1280) return { w: 1280, h: 720  };
+  if (window.innerWidth <= 768) return { w: 1440, h: 2560 };
+  if (window.innerWidth <= 1280) return { w: 1280, h: 720 };
   return { w: 1920, h: 1080 };
 }
 
 // ─── 3-Phase frame URL builder ──────────────────────────────────────────────
-const FRAME_COUNT  = 862;
-const PHASE1_END   = 60;   // loaded immediately
-const PHASE2_END   = 250;  // loaded during idle time
-const currentFrame = i =>
-  `/home/hero-frames/frame_${(i + 1).toString().padStart(4, '0')}.jpg`;
+const PHASE1_END = 60;   // loaded immediately
+const PHASE2_END = 250;  // loaded during idle time
 
 export default function NewHomeContent() {
   const lenis = useLenis();
@@ -34,10 +31,10 @@ export default function NewHomeContent() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const wrapperRef     = useRef(null);
-  const canvasRef      = useRef(null);
+  const wrapperRef = useRef(null);
+  const canvasRef = useRef(null);
   const introLoaderRef = useRef(null);
-  const contentRef     = useRef(null);
+  const contentRef = useRef(null);
 
   // ── Sync lenis ref every render so closures always see the latest value ──
   lenisRef.current = lenis;
@@ -52,16 +49,22 @@ export default function NewHomeContent() {
     let killed = false;
 
     // ── 1. Canvas setup ────────────────────────────────────────────────────
-    const canvas  = canvasRef.current;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const FRAME_COUNT = isMobile ? 352 : 788;
+    const currentFrame = i => isMobile
+      ? `/home/hero-frames-mobile/frame_${(i + 1).toString().padStart(4, '0')}.jpg`
+      : `/home/hero-frames/frame_${(i + 1).toString().padStart(4, '0')}.jpg`;
+
+    const canvas = canvasRef.current;
     const context = canvas ? canvas.getContext('2d') : null;
     if (canvas && context) {
       const { w, h } = getCanvasSize();
-      canvas.width  = w;
+      canvas.width = w;
       canvas.height = h;
     }
 
     // Shared image bank — pre-allocated so indices are stable
-    const images   = new Array(FRAME_COUNT).fill(null);
+    const images = new Array(FRAME_COUNT).fill(null);
     const imageSeq = { frame: 0 };
 
     // ── Render current frame ───────────────────────────────────────────────
@@ -77,10 +80,10 @@ export default function NewHomeContent() {
     // ── Load a single frame ────────────────────────────────────────────────
     function loadFrame(index, onLoaded) {
       if (killed) return;
-      const img      = new Image();
-      img.decoding   = 'async';
-      img.src        = currentFrame(index);
-      images[index]  = img;
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = currentFrame(index);
+      images[index] = img;
       if (onLoaded) img.onload = () => { if (!killed) onLoaded(); };
     }
 
@@ -118,7 +121,7 @@ export default function NewHomeContent() {
       scheduleChunk();
     }
 
-    // ── Phase 3: frames 250–862 → trickle in the background ───────────────
+    // ── Phase 3: frames 250–788 → trickle in the background ───────────────
     function loadPhase3() {
       let idx = PHASE2_END;
       function loadNext() {
@@ -144,13 +147,13 @@ export default function NewHomeContent() {
             { frame: 49 },
             {
               frame: FRAME_COUNT - 1,
-              snap:  'frame',
-              ease:  'none',
+              snap: 'frame',
+              ease: 'none',
               scrollTrigger: {
                 trigger: wrapperRef.current,
-                start:   'top top',
-                end:     'bottom bottom',
-                scrub:   1,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
               },
               onUpdate: render,
             }
@@ -167,17 +170,17 @@ export default function NewHomeContent() {
         .set(introLoaderRef.current, { display: 'none' })
         // Autoplay first 50 frames
         .to(imageSeq, {
-          frame:    49,
-          snap:     'frame',
+          frame: 49,
+          snap: 'frame',
           duration: 2,
-          ease:     'power1.inOut',
+          ease: 'power1.inOut',
           onUpdate: render,
         });
     };
 
     // ── 3. Video readiness gate — never hangs the page ────────────────────
-    const videoEl       = document.getElementById('intro-video');
-    let   introFired    = false;
+    const videoEl = document.getElementById('intro-video');
+    let introFired = false;
 
     function fireIntroOnce() {
       if (introFired || killed) return;
@@ -250,7 +253,7 @@ export default function NewHomeContent() {
         gsap.to(elements, {
           scrollTrigger: {
             trigger: segment,
-            start:   'top 75%',
+            start: 'top 75%',
             toggleActions: 'play none none reverse',
           },
           ...animProps,
@@ -297,9 +300,9 @@ export default function NewHomeContent() {
 
             <section className="segment segment-1 pt-[100px]">
               <div className="content-center">
-                <h1 className="heading-main">INDIAN MOTOR CLUB</h1>
+                <h1 className="heading-main">INDIA&apos;S PREMIER LUXURY CAR RENTAL CLUB</h1>
                 <p className="subheading">
-                  A signature collection of the world&apos;s most evocative automobiles.
+                  A signature collection of luxury and vintage automobiles curated precisely for your journey.
                 </p>
                 <div className="flex flex-row gap-4 md:gap-6 mt-10">
                   <button
@@ -320,20 +323,22 @@ export default function NewHomeContent() {
 
             <section className="segment segment-2">
               <div className="content-left">
-                <h2 className="heading-secondary">THE KINETIC ATELIER</h2>
+                <h2 className="heading-secondary">INDIA&apos;S FINEST LUXURY &amp; VINTAGE CAR RENTALS</h2>
                 <p className="body-text">
-                  From the pulsing heart of Mumbai to the heritage corridors of Delhi, our exotic
-                  collection redefines the landscape of Indian luxury travel.
+                  Spanning top locations like the fast-paced streets of Mumbai and the heritage avenues of Delhi,
+                  our collection brings together some of the finest luxury and vintage cars, redefining how India
+                  experiences premium travel.
                 </p>
               </div>
             </section>
 
             <section className="segment segment-3">
               <div className="content-right">
-                <h2 className="heading-secondary">UNCOMPROMISING STANDARDS</h2>
+                <h2 className="heading-secondary">MAINTAINED TO THE HIGHEST STANDARDS</h2>
                 <p className="body-text">
-                  Every vehicle in our stable undergoes rigorous curation, ensuring the zenith of
-                  performance and prestige for our members.
+                  Every vehicle in our fleet is carefully maintained and thoroughly checked, ensuring
+                  unmatched performance, comfort, and a level of finish that meets the expectations
+                  of our discerning members.
                 </p>
                 <a href="/fleet" className="cta-button cta-button--glass">EXPLORE FLEET</a>
               </div>
@@ -341,8 +346,8 @@ export default function NewHomeContent() {
 
             <section className="segment segment-4">
               <div className="content-center">
-                <h2 className="heading-bold">THE RESERVATION PROTOCOL</h2>
-                <p className="body-text">A seamless, white-glove experience from selection to handover.</p>
+                <h2 className="heading-bold">A SEAMLESS RESERVATION EXPERIENCE</h2>
+                <p className="body-text">A refined, white-glove process designed to make your booking smooth and effortless, from selection to final handover.</p>
               </div>
             </section>
 
@@ -351,17 +356,17 @@ export default function NewHomeContent() {
 
             <section className="segment segment-5">
               <div className="content-left">
-                <h2 className="heading-secondary">THE MEMBERSHIP ENCLAVE</h2>
+                <h2 className="heading-secondary">LUXURY THAT TRAVELS WITH YOU</h2>
                 <p className="body-text">
-                  Access to our global fleet with bespoke concierge management and preferred rates
-                  for regional voyages.
+                  Enjoy access to our fleet and services across India&apos;s key cities, supported by
+                  dedicated assistance and benefits that make every booking seamless.
                 </p>
               </div>
             </section>
 
             <section className="segment segment-6">
               <div className="content-center">
-                <h2 className="heading-secondary">IGNITE THE ENGINE OF PRESTIGE</h2>
+                <h2 className="heading-secondary">DRIVE THE EXTRAORDINARY</h2>
                 <button className="cta-button" onClick={() => setIsModalOpen(true)}>
                   BOOK NOW
                 </button>

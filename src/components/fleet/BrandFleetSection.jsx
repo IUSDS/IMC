@@ -254,13 +254,13 @@ export default function BrandFleetSection({ onOpenModal }) {
                     className="absolute top-1/2 left-1/2 cursor-pointer outline-none transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-auto"
                     style={{ transform, opacity, zIndex }}
                     onClick={(e) => {
-                       e.stopPropagation();
-                       let diff = index - activeIndex;
-                       if (diff > itemCount / 2) diff -= itemCount;
-                       if (diff < -itemCount / 2) diff += itemCount;
-                       setCurrDegree(prev => prev - (diff * angle));
-                       setActiveIndex(index);
-                       setSelectedModelIndex(0);
+                      e.stopPropagation();
+                      let diff = index - activeIndex;
+                      if (diff > itemCount / 2) diff -= itemCount;
+                      if (diff < -itemCount / 2) diff += itemCount;
+                      setCurrDegree(prev => prev - (diff * angle));
+                      setActiveIndex(index);
+                      setSelectedModelIndex(0);
                     }}
                   >
                     <div className={`flex flex-col items-center justify-center transition-all duration-500 w-[160px] md:w-[260px] h-[160px] md:h-[260px] ${isActive ? 'grayscale-0' : 'grayscale opacity-30 md:opacity-60 hover:grayscale-0 hover:opacity-100'}`}>
@@ -370,7 +370,6 @@ export default function BrandFleetSection({ onOpenModal }) {
                   <h3 className="text-white font-headline text-xl md:text-2xl font-medium mb-1 uppercase tracking-tight">{car.brand} {car.model}</h3>
                   <span className="text-[#d4af37] text-[9px] md:text-[10px] font-display font-medium uppercase tracking-[0.2em]">{car.trim}</span>
                 </div>
-                <span className="text-white font-headline font-medium text-lg md:text-xl tracking-tight">{car.price} <span className="text-[10px] font-normal text-white/30 uppercase tracking-widest">/Day</span></span>
               </div>
 
               <div className="relative h-40 md:h-48 mb-8 flex items-center justify-center overflow-hidden">

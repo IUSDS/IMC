@@ -1,11 +1,11 @@
 export const homeData = {
   hero: {
-    heading: "India’s Premier Luxury Car Rental Club",
+    heading: "India's Premier Luxury Car Rental Club",
     subheading: "A signature collection of luxury and vintage automobiles curated precisely for your journey.",
     prelude: "Curated for prestige",
     phases: [
       "Exotic. Luxury. Vintage.",
-      "Delivered to India’s premier destinations.",
+      "Delivered to India's premier destinations.",
       "Designed for milestones, arrivals, and distinction."
     ],
     narratives: [
@@ -14,7 +14,7 @@ export const homeData = {
       "Every handover designed to define prestige."
     ],
     closing: "The extraordinary, made part of your journey.",
-    exit: "Crafted for India’s most discerning journeys."
+    exit: "Crafted for India's most discerning journeys."
   },
   about: {
     eyebrow: "About Indian Motor Club",
@@ -26,12 +26,12 @@ export const homeData = {
     ]
   },
   howItWorks: [
-    { title: "Define Your Requirements", desc: "Share the nature of your journey, be it a red-carpet arrival, a weekend staycation, or a business trip." },
-    { title: "Personal Identification", desc: "Provide your primary contact details to begin our bespoke vetting process." },
-    { title: "Specify Logistics and Coverage", desc: "Select your preferred point of embarkation and review our insurance tiers tailored for high-value assets." },
-    { title: "Documentation", desc: "Submit the necessary credentials via our secure, encrypted portal for rapid verification." },
-    { title: "Formalize Reservation", desc: "Complete your transaction through our premium payment gateway to secure your vehicle." },
-    { title: "Unmatched Delivery", desc: "Your tailored luxury vehicle is delivered precisely on time with discreet white-glove service." }
+    { title: "Define Your Requirements", desc: "Share the purpose of your booking, whether it's for a wedding, a weekend getaway, or a business requirement." },
+    { title: "Personal Identification", desc: "Provide your basic contact details to begin a quick and secure onboarding process." },
+    { title: "Specify Logistics and Coverage", desc: "Select your preferred pickup location and choose from insurance options suited for premium vehicles." },
+    { title: "Documentation", desc: "Submit the required documents for a fast and seamless verification process." },
+    { title: "Formalize Reservation", desc: "Complete your booking through our payment process to confirm and reserve your vehicle." },
+    { title: "On-Time Delivery", desc: "Your selected vehicle is delivered exactly as scheduled, with a smooth and professional handover." }
   ],
   services: [
     { title: "24/7 RESERVATIONS", desc: "Reserve your preferred vehicle anytime through our online portal. Your selected car is prepared and ready exactly when scheduled." },
@@ -42,10 +42,10 @@ export const homeData = {
     { title: "EXCLUSIVE MEMBERSHIP", desc: "Priority access, private gatherings, and a discreet network for distinguished clients across India’s key metros." }
   ],
   signatureOfferings: [
-    { title: "Vehicle Consignment", desc: "Turn your luxury or exotic vehicle into an earning asset. Our consignment program allows you to list your car within our elite rental fleet. We handle the storage, maintenance, and professional bookings, ensuring your vehicle is cared for while generating consistent returns." },
-    { title: "Motor Club Membership", desc: "Join an elite community designed for the true connoisseur. This tier offers more than a key; it provides entry into a private circle with access to social events, premium vehicle storage, and a refined lifestyle experience tailored for those who demand the exceptional." },
-    { title: "Rental Membership", desc: "Designed for the executive who frequents India's metropolitan hubs. This membership unlocks preferred rates, priority access to high-demand assets, and a streamlined booking structure. It is the definitive choice for those who value time and consistency." },
-    { title: "Chauffeur Services", desc: "Experience the ease of our professional chauffeur services. Our drivers are trained to provide a discreet and comfortable journey through the city’s busiest districts. Ideal for corporate travel, weddings, and special events, our chauffeur ensures you arrive safely, refreshed and on time." },
+    { title: "Vehicle Consignment", desc: "Turn your luxury or exotic car into a fully managed, earning asset. We handle storage, maintenance, and bookings, ensuring your vehicle stays in top condition while generating consistent returns.", cta: "Explore Vehicle Consignment", href: "/offerings/vehicle-consignment" },
+    { title: "Motor Club Membership", desc: "Be part of an exclusive community built for true automobile enthusiasts. Along with access to exceptional cars, enjoy access to private gatherings, secure vehicle storage, and a lifestyle experience shaped around refined tastes.", cta: "Explore Motor Club Membership", href: "/offerings/motor-club-membership" },
+    { title: "Rental Membership", desc: "Designed for those who frequently travel across India's major cities. Enjoy priority access, better pricing, and a faster booking experience every time you need a luxury car rental.", cta: "Explore Rental Membership", href: "/offerings/rental-membership" },
+    { title: "Chauffeur Services", desc: "Experience comfortable, stress-free travel with professionally trained chauffeurs who ensure a smooth and discreet journey through busy city routes. Ideal for special events, business meetings, and special occasions.", cta: "Explore Chauffeur Services", href: "/offerings/chauffeur-services" },
   ],
   fleet: [
     { name: "1939 Rolls-Royce Wraith", category: "Vintage", image: "/fleet/rollsroyce/1939-1.webp" },

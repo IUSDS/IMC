@@ -16,7 +16,7 @@ export default function BrandMarquee() {
         }
       `}} />
       <div className="w-full overflow-hidden whitespace-nowrap py-2 md:py-3 bg-black border-y border-white/5 z-10 relative pointer-events-none">
-        <div className="animate-marquee-track gap-12 md:gap-26">
+        <div className="animate-marquee-track gap-12 md:gap-64">
           {/* We repeat the array sufficiently to ensure a seamless infinite scroll across ultra-wide monitors */}
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <span key={i} className="text-white text-xs font-thin md:text-xs tracking-[0.2em] uppercase flex items-center">

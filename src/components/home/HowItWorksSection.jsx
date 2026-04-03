@@ -49,8 +49,8 @@ export default function HowItWorksSection() {
             How It Works
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
-            A bespoke reservation process <br />
-            <em className="opacity-60 text-3xl md:text-4xl font-serif italic block mt-2">defined by simplicity.</em>
+            A simple and structured process <br />
+            <em className="opacity-60 text-3xl md:text-4xl font-serif italic block mt-2">designed for convenience.</em>
           </h2>
         </div>
 
