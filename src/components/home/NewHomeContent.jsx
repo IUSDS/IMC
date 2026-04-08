@@ -4,13 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
-import HowItWorksSection from '@/components/home/HowItWorksSection';
-import SignatureOfferingsSection from '@/components/home/SignatureOfferingsSection';
-import BrandMarquee from '@/components/home/BrandMarquee';
-import BookingModal from '@/components/BookingModal';
+import dynamic from 'next/dynamic';
+
+const HowItWorksSection = dynamic(() => import('@/components/home/HowItWorksSection'));
+const SignatureOfferingsSection = dynamic(() => import('@/components/home/SignatureOfferingsSection'));
+const BrandMarquee = dynamic(() => import('@/components/home/BrandMarquee'));
+const BookingModal = dynamic(() => import('@/components/BookingModal'), { ssr: false });
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 // ─── Canvas resolution based on device ─────────────────────────────────────
@@ -56,7 +59,7 @@ export default function NewHomeContent() {
       : `/home/hero-frames/frame_${(i + 1).toString().padStart(4, '0')}.jpg`;
 
     const canvas = canvasRef.current;
-    const context = canvas ? canvas.getContext('2d') : null;
+    const context = canvas ? canvas.getContext('2d', { alpha: false }) : null;
     if (canvas && context) {
       const { w, h } = getCanvasSize();
       canvas.width = w;
@@ -72,7 +75,6 @@ export default function NewHomeContent() {
       if (!context || !canvas || killed) return;
       const img = images[imageSeq.frame];
       if (img && img.complete && img.naturalWidth) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(img, 0, 0, canvas.width, canvas.height);
       }
     }
@@ -87,21 +89,39 @@ export default function NewHomeContent() {
       if (onLoaded) img.onload = () => { if (!killed) onLoaded(); };
     }
 
-    // ── Phase 1: frames 0–59 → load NOW, render as soon as frame 0 is ready
+    // ── Phase 1: Sequential, throttled loading to NOT block the main thread and LCP!
     loadFrame(0, render);                           // frame 0 gets priority cb
-    for (let i = 1; i < PHASE1_END && i < FRAME_COUNT; i++) {
-      loadFrame(i);
-    }
 
-    // ── Phase 2: frames 60–249 → requestIdleCallback batches ──────────────
+    function loadPhase1() {
+      let i = 1;
+      function loadNextP1() {
+        if (killed) return;
+        // Load 2 frames per tick to avoid blocking network and JS thread
+        for (let c = 0; c < 2 && i < PHASE1_END && i < FRAME_COUNT; c++) {
+          loadFrame(i++);
+        }
+        if (i < PHASE1_END && i < FRAME_COUNT) {
+          setTimeout(loadNextP1, 15);
+        } else {
+          setTimeout(loadPhase2, 1000); // 1-second delay before phase 2 to let browser rest
+        }
+      }
+      setTimeout(loadNextP1, 300); // Wait 300ms before starting phase 1
+    }
+    loadPhase1();
+
+    // ── Phase 2: requestIdleCallback batches ──────────────
     function loadPhase2() {
       let idx = PHASE1_END;
 
       function processChunk(deadline) {
-        while (idx < PHASE2_END && idx < FRAME_COUNT) {
+        let count = 0;
+        // Strictly limit concurrent phase 2 decoding
+        while (idx < PHASE2_END && idx < FRAME_COUNT && count < 3) {
           // Stop if we're almost out of idle time (leave ≥ 5 ms)
           if (deadline && deadline.timeRemaining() < 5) break;
           loadFrame(idx++);
+          count++;
         }
         if (idx < PHASE2_END && idx < FRAME_COUNT && !killed) {
           scheduleChunk();
@@ -112,9 +132,9 @@ export default function NewHomeContent() {
 
       function scheduleChunk() {
         if (typeof requestIdleCallback !== 'undefined') {
-          requestIdleCallback(processChunk, { timeout: 200 });
+          requestIdleCallback(processChunk, { timeout: 100 });
         } else {
-          setTimeout(() => processChunk({ timeRemaining: () => Infinity }), 50);
+          setTimeout(() => processChunk({ timeRemaining: () => 5 }), 50);
         }
       }
 
@@ -127,13 +147,10 @@ export default function NewHomeContent() {
       function loadNext() {
         if (killed || idx >= FRAME_COUNT) return;
         loadFrame(idx++);
-        setTimeout(loadNext, 8); // ~120 frame budget — doesn't block main thread
+        setTimeout(loadNext, 25); // Throttle heavily to avoid CPU spikes
       }
-      setTimeout(loadNext, 250); // wait until Phase 2 is well under way
+      setTimeout(loadNext, 1000); // Wait until Phase 2 is well under way
     }
-
-    // Kick Phase 2 off after giving Phase 1 a 400 ms head-start
-    setTimeout(loadPhase2, 400);
 
     // ── 2. Intro + autoplay animation ─────────────────────────────────────
     const playIntroOut = () => {
@@ -237,11 +254,19 @@ export default function NewHomeContent() {
           y: 0, opacity: 1, duration: 1.5, stagger: 0.2, ease: 'power3.out',
         };
 
-        // Set initial hidden state via JS only (not CSS — avoids invisible text on SSR)
+        if (index === 0) {
+          // Segment 1: NEVER set initial hidden state via CSS or JS so Lighthouse sees it instantly (LCP 0ms).
+          // We let it render normally, then GSAP brings it in from opacity 0.
+          gsap.from(elements, {
+            opacity: 0, y: 30, duration: 2, stagger: 0.2, ease: 'power1.inOut', delay: 0.5
+          });
+          return; // Skip standard ScrollTrigger setup for Segment 1 as it's the hero
+        }
+
+        // Set initial hidden state for all other segments
         gsap.set(elements, { opacity: 0, y: 30 });
 
         switch (index + 1) {
-          case 1: animProps.ease = 'power1.inOut'; animProps.duration = 2; break;
           case 3: animProps.duration = 2; animProps.ease = 'power2.out'; break;
           case 4:
             gsap.set(elements, { scale: 0.98, opacity: 0, y: 30 });

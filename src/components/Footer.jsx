@@ -30,26 +30,26 @@ export default function Footer({ onOpenModal } = {}) {
           </div>
         </div>
         <div className="space-y-4">
-          <h4 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">Our Services</h4>
+          <h2 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">Our Services</h2>
           <Link href="/vehicleConsignment" className="block text-white hover:text-gray-300 transition-colors">Vehicle Consignment Program</Link>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Motor Club Membership</Link>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Rental Membership</Link>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Chauffeur Services</Link>
         </div>
         <div className="space-y-4">
-          <h4 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">Quick Links</h4>
+          <h2 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">Quick Links</h2>
           <Link href="/" className="block text-white hover:text-gray-300 transition-colors">Home</Link>
           <Link href="/fleet" className="block text-white hover:text-gray-300 transition-colors">Fleet</Link>
         </div>
         {/* <div className="space-y-4">
-          <h4 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">Company</h4>
+          <h2 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">Company</h2>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Privacy Policy</Link>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Terms of Service</Link>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Cookie Policy</Link>
           <Link href="#" className="block text-white hover:text-gray-300 transition-colors">Press Kit</Link>
         </div> */}
         <div className="col-span-2 md:col-span-1 lg:col-span-1">
-          <h4 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">HQ</h4>
+          <h2 className="font-medium text-[#d4af37] uppercase text-[10px] tracking-[0.3em] mb-6">HQ</h2>
           <p className="text-white leading-relaxed font-body">
             Mehrauli<br />
             New Delhi 110030

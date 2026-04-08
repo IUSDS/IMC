@@ -105,7 +105,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${jost.variable} ${sfPro.variable} ${manrope.variable} ${inter.variable} light`}>
       <head>
         {/* Preload intro video so the browser fetches it before JS bundles parse */}
-        <link rel="preload" as="video" type="video/mp4" href="/video/headlights.mp4" />
+        <link rel="preload" as="video" type="video/mp4" href="/video/headlights.mp4" fetchPriority="high" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased scroll-smooth hide-scrollbar bg-surface text-on-surface">
