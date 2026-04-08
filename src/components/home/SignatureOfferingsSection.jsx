@@ -47,7 +47,7 @@ export default function SignatureOfferingsSection() {
                   </p>
                   {['Rental Membership', 'Motor Club Membership', 'Chauffeur Services'].includes(item.title) ? (
                     <span className="flex items-center gap-4 w-fit">
-                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white/40">
+                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white/70">
                         Coming Soon
                       </span>
                     </span>
