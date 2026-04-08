@@ -185,6 +185,7 @@ export default function NewHomeContent() {
       introTl
         .to(introLoaderRef.current, { opacity: 0, duration: 1.5, ease: 'power2.inOut' })
         .set(introLoaderRef.current, { display: 'none' })
+        .addLabel('videoEnded')
         // Autoplay first 50 frames
         .to(imageSeq, {
           frame: 49,
@@ -192,7 +193,17 @@ export default function NewHomeContent() {
           duration: 2,
           ease: 'power1.inOut',
           onUpdate: render,
-        });
+        }, 'videoEnded');
+
+      // Animate text specifically after video loader fades out
+      const seg1Elements = wrapperRef.current?.querySelectorAll(
+        '.segment-1 .heading-main, .segment-1 .subheading, .segment-1 .cta-button--glass'
+      );
+      if (seg1Elements && seg1Elements.length) {
+        introTl.to(seg1Elements, {
+          y: 0, opacity: 1, duration: 2, stagger: 0.2, ease: 'power1.inOut'
+        }, 'videoEnded');
+      }
     };
 
     // ── 3. Video readiness gate — never hangs the page ────────────────────
@@ -254,17 +265,12 @@ export default function NewHomeContent() {
           y: 0, opacity: 1, duration: 1.5, stagger: 0.2, ease: 'power3.out',
         };
 
-        if (index === 0) {
-          // Segment 1: NEVER set initial hidden state via CSS or JS so Lighthouse sees it instantly (LCP 0ms).
-          // We let it render normally, then GSAP brings it in from opacity 0.
-          gsap.from(elements, {
-            opacity: 0, y: 30, duration: 2, stagger: 0.2, ease: 'power1.inOut', delay: 0.5
-          });
-          return; // Skip standard ScrollTrigger setup for Segment 1 as it's the hero
-        }
-
-        // Set initial hidden state for all other segments
+        // Set initial hidden state via JS only (not CSS — avoids invisible text on SSR)
         gsap.set(elements, { opacity: 0, y: 30 });
+
+        if (index === 0) {
+          return; // Skip standard ScrollTrigger setup for Segment 1 as it's explicitly choreographed to the intro sequence
+        }
 
         switch (index + 1) {
           case 3: animProps.duration = 2; animProps.ease = 'power2.out'; break;
