@@ -55,7 +55,7 @@ export default function Hero({ onOpenModal }) {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative h-[100svh] w-full flex items-end justify-start overflow-hidden bg-[#0a0a0a]">
+    <section ref={heroRef} className="relative h-[100lvh] w-full flex items-end justify-start overflow-hidden bg-[#0a0a0a]">
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <img
