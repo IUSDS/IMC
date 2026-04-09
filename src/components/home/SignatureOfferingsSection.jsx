@@ -18,7 +18,7 @@ export default function SignatureOfferingsSection() {
           </h2>
         </div>
 
-        <div className="flex flex-col gap-10 mt-10 pb-[20vh]">
+        <div className="flex flex-col gap-[30vh] mt-10 pb-[20vh]">
           {homeData.signatureOfferings.map((item, idx) => {
             // Create stacking effect sticky values
             const topVal = 100 + (idx * 40);

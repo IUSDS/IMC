@@ -18,6 +18,7 @@ export default function HowItWorksSection() {
     const scrollWidth = horizontalContainer.scrollWidth;
     const amountToScroll = scrollWidth - window.innerWidth + 150;
 
+    const isMobile = window.innerWidth < 768;
     const ctx = gsap.context(() => {
       gsap.to(horizontalContainer, {
         x: -amountToScroll,
@@ -26,9 +27,9 @@ export default function HowItWorksSection() {
           trigger: sectionRef.current,
           pin: true,
           pinSpacing: true,
-          scrub: 1,
+          scrub: isMobile ? true : 1,
           start: "top top",
-          end: "+=" + amountToScroll,
+          end: "+=" + (amountToScroll * (isMobile ? 2.5 : 2)),
           invalidateOnRefresh: true
         }
       });

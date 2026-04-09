@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
+import HowItWorksSection from '@/components/home/HowItWorksSection';
+import SignatureOfferingsSection from '@/components/home/SignatureOfferingsSection';
+import BrandMarquee from '@/components/home/BrandMarquee';
 import dynamic from 'next/dynamic';
 
-const HowItWorksSection = dynamic(() => import('@/components/home/HowItWorksSection'));
-const SignatureOfferingsSection = dynamic(() => import('@/components/home/SignatureOfferingsSection'));
-const BrandMarquee = dynamic(() => import('@/components/home/BrandMarquee'));
 const BookingModal = dynamic(() => import('@/components/BookingModal'), { ssr: false });
 
 if (typeof window !== 'undefined') {
@@ -89,14 +89,19 @@ export default function NewHomeContent() {
       if (killed) return;
       const img = new Image();
       img.src = currentFrame(index);
-      img.decode().then(() => {
+      
+      const handleLoad = () => {
         if (killed) return;
         images[index] = img;
         if (onLoaded) onLoaded();
-      }).catch(() => {
+        if (Math.round(imageSeq.frame) === index) render();
+      };
+
+      img.decode().then(handleLoad).catch(() => {
         if (killed) return;
         images[index] = img; // Fallback
         if (onLoaded) onLoaded();
+        if (Math.round(imageSeq.frame) === index) render();
       });
     }
 
@@ -107,17 +112,17 @@ export default function NewHomeContent() {
       let i = 1;
       function loadNextP1() {
         if (killed) return;
-        // Batch load frames now that decode is off-thread
-        for (let c = 0; c < 3 && i < PHASE1_END && i < FRAME_COUNT; c++) {
+        // Batch load fewer frames now that decode is off-thread
+        for (let c = 0; c < 2 && i < PHASE1_END && i < FRAME_COUNT; c++) {
           loadFrame(i++);
         }
         if (i < PHASE1_END && i < FRAME_COUNT) {
-          setTimeout(loadNextP1, 15);
+          requestAnimationFrame(loadNextP1);
         } else {
           setTimeout(loadPhase2, 200); // Short delay before Phase 2
         }
       }
-      setTimeout(loadNextP1, 100); 
+      requestAnimationFrame(loadNextP1); 
     }
     loadPhase1();
 
@@ -142,7 +147,7 @@ export default function NewHomeContent() {
 
       function scheduleChunk() {
         if (typeof requestIdleCallback !== 'undefined') {
-          requestIdleCallback(processChunk, { timeout: 100 });
+          requestIdleCallback(processChunk);
         } else {
           setTimeout(() => processChunk({ timeRemaining: () => 5 }), 50);
         }
@@ -183,7 +188,7 @@ export default function NewHomeContent() {
                 trigger: wrapperRef.current,
                 start: 'top top',
                 end: 'bottom bottom',
-                scrub: 0.1, // Ultra-responsive lag-free fast scrolling
+                scrub: typeof window !== "undefined" && window.innerWidth < 768 ? true : 0.5,
               },
               onUpdate: render,
             }
@@ -191,6 +196,7 @@ export default function NewHomeContent() {
 
           const l = lenisRef.current;
           if (l) l.start();
+          ScrollTrigger.sort();
           ScrollTrigger.refresh();
         },
       });
@@ -267,7 +273,8 @@ export default function NewHomeContent() {
 
     // ── 4. Segment scroll animations ─────────────────────────────────────
     const ctx = gsap.context(() => {
-      const segments = document.querySelectorAll('.segment');
+      const isMobile = window.innerWidth < 768;
+      const segments = gsap.utils.toArray('.segment');
       segments.forEach((segment, index) => {
         const elements = segment.querySelectorAll(
           '.heading-main, .heading-secondary, .heading-bold, .subheading, .body-text, .cta-button, .cta-button--glass'
@@ -294,6 +301,8 @@ export default function NewHomeContent() {
           case 6: animProps.ease = 'power1.out'; break;
         }
 
+        // Section stoppers disabled to prevent desync with embedded video text.
+        // Once a clean textless video is implemented, pinning can be restored.
         gsap.to(elements, {
           scrollTrigger: {
             trigger: segment,
@@ -338,9 +347,9 @@ export default function NewHomeContent() {
       </div>
 
       {/* ── Scroll Content ────────────────────────────────────────────── */}
-      <main id="smooth-wrapper">
-        <div id="smooth-content" ref={contentRef}>
-          <div className="relative">
+      <main className="scroll-wrapper">
+        <div className="scroll-content" ref={contentRef}>
+          <div className="relative z-10 w-full">
 
             <section className="segment segment-1 pt-[100px]">
               <div className="content-center">
@@ -395,8 +404,13 @@ export default function NewHomeContent() {
               </div>
             </section>
 
-            <HowItWorksSection />
-            <SignatureOfferingsSection />
+            <section className="relative w-full z-10 home-component-block border-t border-white/5">
+              <HowItWorksSection />
+            </section>
+            
+            <section className="relative w-full z-10 home-component-block border-t border-white/5">
+              <SignatureOfferingsSection />
+            </section>
 
             <section className="segment segment-5">
               <div className="content-left">
