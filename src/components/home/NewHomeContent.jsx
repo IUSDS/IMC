@@ -19,7 +19,7 @@ if (typeof window !== 'undefined') {
 // ─── Canvas resolution based on device ─────────────────────────────────────
 function getCanvasSize() {
   if (typeof window === 'undefined') return { w: 1920, h: 1080 };
-  if (window.innerWidth <= 768) return { w: 1440, h: 2560 };
+  if (window.innerWidth <= 768) return { w: 1080, h: 1920 };
   if (window.innerWidth <= 1280) return { w: 1280, h: 720 };
   return { w: 1920, h: 1080 };
 }
@@ -69,13 +69,18 @@ export default function NewHomeContent() {
     // Shared image bank — pre-allocated so indices are stable
     const images = new Array(FRAME_COUNT).fill(null);
     const imageSeq = { frame: 0 };
+    let lastDrawnFrame = -1;
 
     // ── Render current frame ───────────────────────────────────────────────
     function render() {
       if (!context || !canvas || killed) return;
-      const img = images[imageSeq.frame];
+      const f = Math.round(imageSeq.frame);
+      if (f === lastDrawnFrame) return;
+      
+      const img = images[f];
       if (img && img.complete && img.naturalWidth) {
         context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        lastDrawnFrame = f;
       }
     }
 
@@ -83,10 +88,16 @@ export default function NewHomeContent() {
     function loadFrame(index, onLoaded) {
       if (killed) return;
       const img = new Image();
-      img.decoding = 'async';
       img.src = currentFrame(index);
-      images[index] = img;
-      if (onLoaded) img.onload = () => { if (!killed) onLoaded(); };
+      img.decode().then(() => {
+        if (killed) return;
+        images[index] = img;
+        if (onLoaded) onLoaded();
+      }).catch(() => {
+        if (killed) return;
+        images[index] = img; // Fallback
+        if (onLoaded) onLoaded();
+      });
     }
 
     // ── Phase 1: Sequential, throttled loading to NOT block the main thread and LCP!
@@ -96,17 +107,17 @@ export default function NewHomeContent() {
       let i = 1;
       function loadNextP1() {
         if (killed) return;
-        // Load 2 frames per tick to avoid blocking network and JS thread
-        for (let c = 0; c < 2 && i < PHASE1_END && i < FRAME_COUNT; c++) {
+        // Batch load frames now that decode is off-thread
+        for (let c = 0; c < 3 && i < PHASE1_END && i < FRAME_COUNT; c++) {
           loadFrame(i++);
         }
         if (i < PHASE1_END && i < FRAME_COUNT) {
           setTimeout(loadNextP1, 15);
         } else {
-          setTimeout(loadPhase2, 1000); // 1-second delay before phase 2 to let browser rest
+          setTimeout(loadPhase2, 200); // Short delay before Phase 2
         }
       }
-      setTimeout(loadNextP1, 300); // Wait 300ms before starting phase 1
+      setTimeout(loadNextP1, 100); 
     }
     loadPhase1();
 
@@ -116,9 +127,8 @@ export default function NewHomeContent() {
 
       function processChunk(deadline) {
         let count = 0;
-        // Strictly limit concurrent phase 2 decoding
-        while (idx < PHASE2_END && idx < FRAME_COUNT && count < 3) {
-          // Stop if we're almost out of idle time (leave ≥ 5 ms)
+        // Process up to 10 frames per idle chunk
+        while (idx < PHASE2_END && idx < FRAME_COUNT && count < 10) {
           if (deadline && deadline.timeRemaining() < 5) break;
           loadFrame(idx++);
           count++;
@@ -146,10 +156,13 @@ export default function NewHomeContent() {
       let idx = PHASE2_END;
       function loadNext() {
         if (killed || idx >= FRAME_COUNT) return;
-        loadFrame(idx++);
-        setTimeout(loadNext, 25); // Throttle heavily to avoid CPU spikes
+        // Batch 5 for fast continuous load
+        for (let c = 0; c < 5 && idx < FRAME_COUNT; c++) {
+          loadFrame(idx++);
+        }
+        setTimeout(loadNext, 15);
       }
-      setTimeout(loadNext, 1000); // Wait until Phase 2 is well under way
+      setTimeout(loadNext, 300);
     }
 
     // ── 2. Intro + autoplay animation ─────────────────────────────────────
@@ -170,7 +183,7 @@ export default function NewHomeContent() {
                 trigger: wrapperRef.current,
                 start: 'top top',
                 end: 'bottom bottom',
-                scrub: 1,
+                scrub: 0.1, // Ultra-responsive lag-free fast scrolling
               },
               onUpdate: render,
             }
