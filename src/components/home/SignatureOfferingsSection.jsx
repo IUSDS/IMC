@@ -39,7 +39,7 @@ export default function SignatureOfferingsSection() {
                 style={{ top: `${topVal}px` }}
               >
                 <div className="flex flex-col gap-6 md:gap-0 max-w-3xl">
-                  <h3 className="text-3xl md:text-[32px] font-serif text-white tracking-[0.05em] uppercase mb-6 md:mb-8">
+                  <h3 className="text-3xl md:text-[32px] font-serif text-[#d4af37] tracking-[0.05em] uppercase mb-6 md:mb-8">
                     {item.title}
                   </h3>
                   <p className="text-white/60 text-base md:text-[16px] font-light leading-[1.8] mb-10 md:mb-12">
@@ -47,16 +47,16 @@ export default function SignatureOfferingsSection() {
                   </p>
                   {['Rental Membership', 'Motor Club Membership', 'Chauffeur Services'].includes(item.title) ? (
                     <span className="flex items-center gap-4 w-fit">
-                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white/70">
+                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-[#d4af37]">
                         Coming Soon
                       </span>
                     </span>
                   ) : (
                     <Link href={`/offerings/${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="group flex items-center gap-4 w-fit">
-                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-white group-hover:text-[#d4af37] transition-colors duration-300">
+                      <span className="uppercase tracking-[0.2em] text-[10px] md:text-xs font-medium text-[#d4af37] group-hover:text-[#d4af37]/50 transition-colors duration-300">
                         Explore {item.title}
                       </span>
-                      <span className="w-8 h-[1px] bg-white/30 group-hover:bg-[#d4af37] group-hover:w-12 transition-all duration-300" />
+                      <span className="w-8 h-[1px] bg-[#d4af37] group-hover:bg-[#d4af37] group-hover:w-12 transition-all duration-300" />
                     </Link>
                   )}
                 </div>

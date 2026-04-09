@@ -78,7 +78,7 @@ export default function HowItWorksSection() {
                 <div className="text-[#d4af37] font-serif tracking-[0.3em] text-xs mb-4 opacity-80 group-hover:opacity-100 transition-opacity uppercase">
                   {(idx + 1).toString().padStart(2, '0')}
                 </div>
-                <h3 className="text-[18px] tracking-[0.05em] uppercase font-serif mb-4 text-white">
+                <h3 className="text-[18px] tracking-[0.05em] uppercase font-serif mb-4 text-[#d4af37]">
                   {step.title}
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed text-sm">
