@@ -38,7 +38,7 @@ const CARS = [
 
   // BMW
   { brand: 'BMW', model: 'Z4', trim: 'Roadster', price: '$400', power: '382 HP', engine: '3.0L I6', img: '/fleet/bmw/Z4-1.webp', images: ['/fleet/bmw/Z4-1.webp'] },
-  { brand: 'BMW', model: '520i', trim: 'Sedan', price: '$350', power: '208 HP', engine: '2.0L I4', img: '/fleet/bmw/520i-1.webp', images: ['/fleet/bmw/520i-1.webp', '/fleet/bmw/520i-2.webp'] },
+  { brand: 'BMW', model: '520i', trim: 'Sedan', price: '$350', power: '208 HP', engine: '2.0L I4', img: '/fleet/bmw/520i-new.jpg', images: ['/fleet/bmw/520i-new.jpg', '/fleet/bmw/520i-2.webp'] },
 
   // Mercedes-Benz
   { brand: 'Mercedes-Benz', model: 'G-Wagon', trim: 'G63 AMG', price: '$1,200', power: '577 HP', engine: '4.0L V8 TT', img: '/fleet/mercedes/Gwagon-1.webp', images: ['/fleet/mercedes/Gwagon-1.webp'] },
@@ -48,7 +48,7 @@ const CARS = [
   { brand: 'Volvo', model: 'S90', trim: 'Luxury Sedan', price: '$400', power: '295 HP', engine: 'Mild Hybrid', img: '/fleet/volvo/S90-1.webp', images: ['/fleet/volvo/S90-1.webp'] },
 
   // Land Rover
-  { brand: 'Land Rover', model: 'Range Rover', trim: 'HSE', price: '$900', power: '395 HP', engine: '3.0L I6', img: '/fleet/landrover/RangeRover-1.webp', images: ['/fleet/landrover/RangeRover-1.webp'] },
+  { brand: 'Land Rover', model: 'Range Rover', trim: 'HSE', price: '$900', power: '395 HP', engine: '3.0L I6', img: '/fleet/landrover/RangeRover-new.jpg', images: ['/fleet/landrover/RangeRover-new.jpg'] },
 
   // Lamborghini
   { brand: 'Lamborghini', model: 'Aventador', trim: 'LP 780-4', price: '$2,500', power: '769 HP', engine: 'V12', img: '/fleet/lamborghini/aventador-1.webp', images: ['/fleet/lamborghini/aventador-1.webp', '/fleet/lamborghini/aventador-2.webp'] }
@@ -72,7 +72,7 @@ const SPOTLIGHT_DATA = {
     models: ['Z4', '520i'],
     details: {
       'Z4': { name: 'BMW Z4', desc: 'A true roadster experience. Dynamic agility meets open-air freedom and stunning aesthetics.', power: '382 HP', engine: '3.0L I6', accel: '3.9s', topSpeed: '250 KM/H', img: '/fleet/bmw/Z4-1.webp' },
-      '520i': { name: 'BMW 520i', desc: 'The quintessential executive sedan combining supreme comfort with incredibly dynamic handling.', power: '208 HP', engine: '2.0L I4', accel: '7.5s', topSpeed: '230 KM/H', img: '/fleet/bmw/520i-1.webp' }
+      '520i': { name: 'BMW 520i', desc: 'The quintessential executive sedan combining supreme comfort with incredibly dynamic handling.', power: '208 HP', engine: '2.0L I4', accel: '7.5s', topSpeed: '230 KM/H', img: '/fleet/bmw/520i-new.jpg' }
     }
   },
   'Mercedes-Benz': {
@@ -91,7 +91,7 @@ const SPOTLIGHT_DATA = {
   'Land Rover': {
     models: ['Range Rover'],
     details: {
-      'Range Rover': { name: 'Range Rover', desc: 'The pinnacle of refined capability. Unmistakable proportions, peerless luxury, and commanding all-terrain ability.', power: '395 HP', engine: '3.0L I6', accel: '5.8s', topSpeed: '242 KM/H', img: '/fleet/landrover/RangeRover-1.webp' }
+      'Range Rover': { name: 'Range Rover', desc: 'The pinnacle of refined capability. Unmistakable proportions, peerless luxury, and commanding all-terrain ability.', power: '395 HP', engine: '3.0L I6', accel: '5.8s', topSpeed: '242 KM/H', img: '/fleet/landrover/RangeRover-new.jpg' }
     }
   }
 };
